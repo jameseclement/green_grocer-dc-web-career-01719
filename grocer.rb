@@ -33,12 +33,21 @@ end
 
 def apply_coupons(cart, coupon)
   coupon.each {|item|
+<<<<<<< HEAD
     item_name = item[:item]
     if cart.has_key?(item_name) == true && cart[item_name][:count] >= item[:num]
       cart[item_name][:count] = cart[item_name][:count] - item[:num]
       item_name_coup = item_name + (" W/COUPON")
       if cart.has_key?(item_name_coup) == false
         cart[item_name_coup] = {:price => item[:cost], :clearance => cart[item_name][:clearance], :count => 1}
+=======
+    name_of_item = item[:item]
+    if cart.has_key?(name_of_item) == true && cart[name_of_item][:count] >= item[:num]
+      cart[name_of_item][:count] = cart[name_of_item][:count] - item[:num]
+      new_item = name_of_item + (" W/COUPON")
+      if cart.has_key?(new_item) == false
+        cart[new_item] = {:price => item[:cost], :clearance => cart[name_of_item][:clearance], :count => 1}
+>>>>>>> 43fc4dc6fbde0f4f2632e22f42258c065bc30671
       else 
         cart[item_name_coup][:count] += 1
       end
@@ -51,6 +60,10 @@ end
 
 def apply_clearance(cart)
  cart.each {|x,y|
+<<<<<<< HEAD
+=======
+ binding.pry
+>>>>>>> 43fc4dc6fbde0f4f2632e22f42258c065bc30671
  if y[:clearance] === true
    clearance_price = y[:price] * 0.8
    y[:price] = clearance_price.round(2)
@@ -58,6 +71,7 @@ def apply_clearance(cart)
  }
 end
 
+<<<<<<< HEAD
 def checkout(cart, coupons)
   grand_total = 0 
   cart = apply_clearance(apply_coupons(consolidate_cart(cart), coupons))
@@ -67,4 +81,16 @@ def checkout(cart, coupons)
     grand_total *= 0.9
   end
   grand_total
+=======
+def checkout(cart: [], coupons: [])
+  grand_total = 0 
+  cart = consolidate_cart(cart: [])
+  if cart.length === 1 
+    cart_couponed = apply_coupons(cart, coupons: [])
+    cart_cc = apply_clearance(cart_couponed)
+  end
+  cart_cc.each {|x, y|
+  binding.pry
+  }
+>>>>>>> 43fc4dc6fbde0f4f2632e22f42258c065bc30671
   end
